@@ -1,0 +1,14 @@
+version: 2
+
+sources:
+  - name: devstage
+    schema: devstage  # The source schema
+    tables:
+      - name: productlines
+      - name: products
+      - name: offices
+      - name: employees
+      - name: customers
+      - name: orders
+      - name: orderdetails
+      - name: payments
