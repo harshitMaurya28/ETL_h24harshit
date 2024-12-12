@@ -23,7 +23,7 @@ WITH ranked_data AS (
             WHEN ed.officecode IS NOT NULL THEN CURRENT_TIMESTAMP
             ELSE ed.dw_update_timestamp
         END AS dw_update_timestamp,
-        ROW_NUMBER() OVER (ORDER BY sd.officecode) + COALESCE(MAX(ed.dw_office_id) OVER (), 0) AS dw_office_id
+        coalesce(ed.dw_office_id,ROW_NUMBER() OVER (ORDER BY sd.officecode) + COALESCE(MAX(ed.dw_office_id) OVER (), 0)) AS dw_office_id
     FROM
         devstage.offices sd
     LEFT JOIN devdw.offices ed ON sd.officecode = ed.officecode

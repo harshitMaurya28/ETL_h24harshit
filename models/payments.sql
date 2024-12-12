@@ -44,7 +44,7 @@ final_data AS (
         bc.etl_batch_no,
         bc.etl_batch_date,
         cl.dw_customer_id,
-        row_number() over () + coalesce(max(dw.dw_payment_id) over (), 0) as dw_payment_id
+        coalesce(dw.dw_payment_id,row_number() over () + coalesce(max(dw.dw_payment_id) over (), 0)) as dw_payment_id
     FROM staging_payments AS sp
     CROSS JOIN batch_control AS bc
     LEFT JOIN {{ this }} AS dw

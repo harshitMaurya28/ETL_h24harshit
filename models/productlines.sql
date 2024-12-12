@@ -6,7 +6,7 @@
 WITH ranked_data AS (
     SELECT
         sd.productline,
-        ROW_NUMBER() OVER (ORDER BY sd.productline) + COALESCE(MAX(ed.dw_product_line_id) OVER (), 0) AS dw_product_line_id,
+        coalesce(ed.dw_product_line_id, ROW_NUMBER() OVER (ORDER BY sd.productline) + COALESCE(MAX(ed.dw_product_line_id) OVER (), 0)) AS dw_product_line_id,
         CASE
             WHEN sd.productline IS NOT NULL AND ed.productline IS NULL THEN sd.create_timestamp
             ELSE ed.src_create_timestamp

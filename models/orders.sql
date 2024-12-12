@@ -58,7 +58,7 @@ final_data AS (
         bc.etl_batch_no,
         bc.etl_batch_date,
         -- Generate auto-increment dw_order_id for new records
-        ROW_NUMBER() OVER () + (SELECT max_order_id FROM max_id) AS dw_order_id
+        coalesce(dw.dw_order_id, ROW_NUMBER() OVER () + (SELECT max_order_id FROM max_id)) AS dw_order_id
     FROM staging_orders AS st
     CROSS JOIN batch_control AS bc
     JOIN customer_mapping AS cm

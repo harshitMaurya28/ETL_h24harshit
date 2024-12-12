@@ -26,7 +26,7 @@ WITH ranked_data AS (
             WHEN sd.productcode IS NOT NULL THEN CURRENT_TIMESTAMP
             ELSE ed.dw_update_timestamp
         END AS dw_update_timestamp,
-        ROW_NUMBER() OVER (ORDER BY sd.productcode) + COALESCE(MAX(ed.dw_product_id) OVER (), 0) AS dw_product_id
+        coalesce(dw_product_id,ROW_NUMBER() OVER (ORDER BY sd.productcode) + COALESCE(MAX(ed.dw_product_id) OVER (), 0)) AS dw_product_id
     FROM
         devstage.products sd
     LEFT JOIN devdw.products ed ON sd.productcode = ed.src_productcode
