@@ -1,3 +1,4 @@
+-- models/monthly_product_summary.sql
 
 {{ config(materialized='incremental') }}
 

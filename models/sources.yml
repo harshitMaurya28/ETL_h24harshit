@@ -2,13 +2,19 @@ version: 2
 
 sources:
   - name: devstage
-    schema: devstage  # The source schema
+    schema: devstage # Redshift schema name
     tables:
-      - name: productlines
+      - name: productlines # Table name in Redshift
       - name: products
       - name: offices
       - name: employees
       - name: customers
+      - name: payments
       - name: orders
       - name: orderdetails
-      - name: payments
+      - name: customer_history
+      - name: product_history
+      - name: daily_customer_summary
+      - name: daily_product_summary
+      - name: monthly_customer_summary
+      - name: monthly_product_summary
